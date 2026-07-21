@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
+    public AudioSource coinSound;
+
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Something entered: " + other.name);
@@ -14,7 +16,12 @@ public class Coin : MonoBehaviour
 
             Debug.Log("Score = " + ScoreManager.score);
 
-            Destroy(gameObject);
+            coinSound.Play();
+
+            GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<Collider>().enabled = false;
+
+            Destroy(gameObject, coinSound.clip.length);
         }
     }
 }
